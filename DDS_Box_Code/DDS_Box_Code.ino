@@ -29,7 +29,7 @@ ADF4350 clock(PLL2_LE);
 SPISettings spi_settings(250000, MSBFIRST, SPI_MODE0);
 
 void setup() {
-  Serial.begin(115200);
+  //Serial.begin(115200);
   delay(1000);
   SPI.begin();
   delay(50);	// give it a sec
@@ -68,6 +68,7 @@ void setup() {
 void loop() {
    SetListImage.readSerial(); 
 }
+
 
 void setFreq0(AD9954 * dds, int * params){
   int freq = (int)params[0];

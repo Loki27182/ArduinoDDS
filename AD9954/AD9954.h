@@ -54,7 +54,7 @@ class AD9954
         void setFTW(unsigned long);
 
         // places DDS in linear sweep mode
-        void linearSweep(unsigned long, unsigned long, unsigned long, byte, unsigned long, byte);
+        void linearSweep(unsigned long, unsigned long, unsigned long, byte, unsigned long, byte, byte = 0);
 
 
 

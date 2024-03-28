@@ -194,7 +194,7 @@ void AD9954::setFTW(unsigned long ftw){
 //      negRR: same as above, but for negative ramp.
 //      
 //      As a general rule, round up (not down) in calculating the delta frequency steps.
-void AD9954::linearSweep(unsigned long freq0, unsigned long freq1, unsigned long posDF, byte posRR, unsigned long negDF, byte negRR){
+void AD9954::linearSweep(unsigned long freq0, unsigned long freq1, unsigned long posDF, byte posRR, unsigned long negDF, byte negRR, byte noDwell){
 
     // calculate
     unsigned long ftw0 = freq0*RESOLUTION / _refClk;
@@ -206,6 +206,9 @@ void AD9954::linearSweep(unsigned long freq0, unsigned long freq1, unsigned long
     // construct register values
     byte CFR1[] = { 0x00, 0x20, 0x00, 0x00 };
     byte CFR1Info[] = {0x00, 4};
+	if (noDwell){
+	CFR1[3] = 0x04;
+	}
 
     byte FTW0[] = {lowByte(ftw0 >> 24), lowByte(ftw0 >> 16), lowByte(ftw0 >> 8), lowByte(ftw0) };
     byte FTW0Info[] = {0x04, 4};
@@ -224,7 +227,8 @@ void AD9954::linearSweep(unsigned long freq0, unsigned long freq1, unsigned long
     AD9954::writeRegister(FTW1Info, FTW1);
     AD9954::writeRegister(NLSCWInfo, NLSCW);
     AD9954::writeRegister(PLSCWInfo, PLSCW);
-
+	
+	digitalWrite(_ps0, LOW);
     AD9954::update();
 	digitalWrite(_ps0, HIGH);
 
