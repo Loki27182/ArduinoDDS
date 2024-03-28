@@ -5,7 +5,7 @@
 
 #include "AD9954.h"
 #include "ADF4350.h"
-#include "ADF4107.h"
+//#include "ADF4107.h"
 
 // Serial command library
 // https://github.com/kroimon/Arduino-SerialCommand
@@ -24,7 +24,7 @@ AD9954 beatnoteDDS(DDS1_CS, DDS1_RESET, DDS1_IOUPDATE, DDS1_PS0, 0, 0);
 ADF4350 clock(PLL2_LE);
 
 // Beatnote OPLL
-ADF4107 beatnotePLL(PLL1_LE);
+//ADF4107 beatnotePLL(PLL1_LE);
 
 SPISettings spi_settings(250000, MSBFIRST, SPI_MODE0);
 
@@ -54,7 +54,7 @@ void setup() {
   beatnoteDDS.setFreq(47000000);
   delay(100);
  
-  beatnotePLL.initialize(16,3,0,1);
+  //beatnotePLL.initialize(16,3,0,1);
 
   
   SetListImage.registerDevice(beatnoteDDS, 0);  
@@ -68,7 +68,6 @@ void setup() {
 void loop() {
    SetListImage.readSerial(); 
 }
-
 
 void setFreq0(AD9954 * dds, int * params){
   int freq = (int)params[0];
